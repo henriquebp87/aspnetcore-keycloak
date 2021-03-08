@@ -34,9 +34,20 @@ namespace KeyCloak3
                     //ValidAudiences = new[] { "master-realm", "account" },
                     ValidateIssuer = true,
                     ValidIssuer = this.Configuration["Oidc:Authority"],
-                    ValidateLifetime = false
+                    ValidateLifetime = true
                 };
+                options.RequireHttpsMetadata = false;
             });
+
+            //access_token = POST http://<YOUR_KEYCLOAK_HOST>:<YOUR_KEYCLOAK_PORT>/auth/realms/<YOUR_REALM>/protocol/openid-connect/token
+            /*  BODY:
+                client_id:<YOUR_CLIENT_ID>
+                client_secret:<YOUR_CLIENT_SECRET>
+                grant_type:password
+                scope:openid
+                username:<YOUR_USERNAME>
+                password:<YOUR_PASSWORD>
+            */
 
             services.AddAuthorization();
         }
